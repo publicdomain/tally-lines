@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace TallyLines
 {
@@ -121,7 +122,8 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnDisplayTextBoxTextChanged(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Update items
+            this.itemsToolStripStatusLabel.Text = this.displayTextBox.Lines.Count().ToString();
         }
 
         /// <summary>
