@@ -17,6 +17,11 @@ namespace TallyLines
     public partial class MainForm : Form
     {
         /// <summary>
+        /// The line characters.
+        /// </summary>
+        int lineCharacters = 20;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:TallyLines.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -32,7 +37,19 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnProcessTallyButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Set result based on a list of X characters from current lines in text box
+            var result = this.displayTextBox.Lines.Select(x => x.Length > lineCharacters ? x.Substring(0, lineCharacters) : x).ToList<string>()
+            .GroupBy(item => item)
+            .Select(item => new
+            {
+                Text = item.Key,
+                Count = item.Count()
+            })
+            .OrderByDescending(item => item.Count)
+            .ThenBy(item => item.Text);
+
+            // Tally processing
+            this.displayTextBox.Text = string.Join(Environment.NewLine, result.Select(item => string.Format("There {0} of {1}", item.Count > 1 ? $"are {item.Count}" : "is 1", item.Text)));
         }
 
         /// <summary>
