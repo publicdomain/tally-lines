@@ -38,7 +38,7 @@ namespace TallyLines
         private void OnProcessTallyButtonClick(object sender, EventArgs e)
         {
             // Set result based on a list of X characters from current lines in text box
-            var result = this.displayTextBox.Lines.Select(x => x.Length > lineCharacters ? x.Substring(0, lineCharacters) : x).ToList<string>()
+            var result = this.displayTextBox.Lines.Where(x => !string.IsNullOrEmpty(x.Trim())).Select(x => x.Length > lineCharacters ? x.Substring(0, lineCharacters) : x).ToList<string>()
             .GroupBy(item => item)
             .Select(item => new
             {
@@ -59,7 +59,11 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Clear text box
+            this.displayTextBox.Clear();
+
+            // Focus text box
+            this.displayTextBox.Focus();
         }
 
         /// <summary>
