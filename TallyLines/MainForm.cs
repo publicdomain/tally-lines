@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
+using System.IO;
 
 namespace TallyLines
 {
@@ -37,8 +38,8 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnProcessTallyButtonClick(object sender, EventArgs e)
         {
-            // Set result based on a list of X characters from current lines in text box
-            var result = this.displayTextBox.Lines.Where(x => !string.IsNullOrEmpty(x.Trim())).Select(x => x.Length > lineCharacters ? x.Substring(0, lineCharacters) : x).ToList<string>()
+            // TODO Set result based on a list of X characters from current lines in text box [May be improved, including readability-wise]
+            var result = this.displayTextBox.Lines.Where(x => !this.removeBlankLinesToolStripMenuItem.Checked || !string.IsNullOrEmpty(x)).Select(x => (this.trimLinesToolStripMenuItem.Checked ? x.Trim() : x)).Select(x => x.Length > lineCharacters ? x.Substring(0, lineCharacters) : x).ToList<string>()
             .GroupBy(item => item)
             .Select(item => new
             {
@@ -73,7 +74,15 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Reset file name
+            this.textFileOpenFileDialog.FileName = string.Empty;
+
+            // Show open file dialog
+            if (this.textFileOpenFileDialog.ShowDialog() == DialogResult.OK && this.textFileOpenFileDialog.FileName.Length > 0)
+            {
+                // Read file to text box
+                this.displayTextBox.Lines = File.ReadLines(this.textFileOpenFileDialog.FileName).ToArray();
+            }
         }
 
         /// <summary>

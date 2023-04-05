@@ -43,6 +43,8 @@ namespace TallyLines
 			this.setFirstCharacters20ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.removeBlankLinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.trimLinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.freeReleasesPublicDomainisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +67,6 @@ namespace TallyLines
 			// 
 			this.textFileOpenFileDialog.DefaultExt = "txt";
 			this.textFileOpenFileDialog.Filter = "TXT Files|*.txt|All files (*.*)|*.*";
-			this.textFileOpenFileDialog.Multiselect = true;
 			// 
 			// mainMenuStrip
 			// 
@@ -96,7 +97,7 @@ namespace TallyLines
 			this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
 			this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.OnNewToolStripMenuItemClick);
 			// 
@@ -106,19 +107,19 @@ namespace TallyLines
 			this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
 			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
 			this.openToolStripMenuItem.Text = "&Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.OnOpenToolStripMenuItemClick);
 			// 
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparator3.Size = new System.Drawing.Size(143, 6);
 			// 
 			// exitToolStripMenuItem1
 			// 
 			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
 			this.exitToolStripMenuItem1.Text = "E&xit";
 			this.exitToolStripMenuItem1.Click += new System.EventHandler(this.OnExitToolStripMenuItem1Click);
 			// 
@@ -143,7 +144,7 @@ namespace TallyLines
 			this.customizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.setFirstCharacters20ToolStripMenuItem});
 			this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-			this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
 			this.customizeToolStripMenuItem.Text = "&Customize";
 			// 
 			// setFirstCharacters20ToolStripMenuItem
@@ -156,17 +157,35 @@ namespace TallyLines
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.alwaysOnTopToolStripMenuItem});
+									this.alwaysOnTopToolStripMenuItem,
+									this.removeBlankLinesToolStripMenuItem,
+									this.trimLinesToolStripMenuItem});
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
 			this.optionsToolStripMenuItem.Text = "&Options";
 			this.optionsToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.OnOptionsToolStripMenuItemDropDownItemClicked);
 			// 
 			// alwaysOnTopToolStripMenuItem
 			// 
 			this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-			this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
+			// 
+			// removeBlankLinesToolStripMenuItem
+			// 
+			this.removeBlankLinesToolStripMenuItem.Checked = true;
+			this.removeBlankLinesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.removeBlankLinesToolStripMenuItem.Name = "removeBlankLinesToolStripMenuItem";
+			this.removeBlankLinesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.removeBlankLinesToolStripMenuItem.Text = "&Remove blank lines";
+			// 
+			// trimLinesToolStripMenuItem
+			// 
+			this.trimLinesToolStripMenuItem.Checked = true;
+			this.trimLinesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.trimLinesToolStripMenuItem.Name = "trimLinesToolStripMenuItem";
+			this.trimLinesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.trimLinesToolStripMenuItem.Text = "&Trim lines";
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -282,11 +301,14 @@ namespace TallyLines
 			// displayTextBox
 			// 
 			this.displayTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.displayTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.displayTextBox.Location = new System.Drawing.Point(3, 28);
 			this.displayTextBox.Multiline = true;
 			this.displayTextBox.Name = "displayTextBox";
+			this.displayTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.displayTextBox.Size = new System.Drawing.Size(428, 340);
 			this.displayTextBox.TabIndex = 2;
+			this.displayTextBox.WordWrap = false;
 			this.displayTextBox.TextChanged += new System.EventHandler(this.OnDisplayTextBoxTextChanged);
 			// 
 			// MainForm
@@ -310,6 +332,8 @@ namespace TallyLines
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem trimLinesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem removeBlankLinesToolStripMenuItem;
 		private System.Windows.Forms.TextBox displayTextBox;
 		private System.Windows.Forms.Label displayLabel;
 		private System.Windows.Forms.Button processTallyButton;
