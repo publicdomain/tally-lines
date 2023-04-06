@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
 using System.IO;
+using Microsoft.VisualBasic;
 
 namespace TallyLines
 {
@@ -92,7 +93,15 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnSetFirstCharacters20ToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Try to parse integer from user input
+            if (int.TryParse(Interaction.InputBox("Set new first characters value:", "Characters", this.lineCharacters.ToString()), out int parsedInt) && parsedInt > 0)
+            {
+                // Set to parsed integer
+                this.lineCharacters = parsedInt;
+
+                // Update text
+                this.setFirstCharacters20ToolStripMenuItem.Text = $"&Set first characters ({parsedInt})";
+            }
         }
 
         /// <summary>
