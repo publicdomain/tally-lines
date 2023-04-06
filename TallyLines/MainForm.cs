@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.IO;
 using Microsoft.VisualBasic;
+using System.Diagnostics;
 
 namespace TallyLines
 {
@@ -139,7 +140,8 @@ namespace TallyLines
         /// <param name="e">Event arguments.</param>
         private void OnOriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Open original thread
+            Process.Start("https://www.donationcoder.com/forum/index.php?topic=53339.0");
         }
 
         /// <summary>
